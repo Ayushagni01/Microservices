@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name="ORDER_DETAILS")
@@ -16,13 +18,13 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long orderid;
+    private long id;
     @Column(name="PRODUCT_ID")
     private long productId;
     @Column(name="QUANTITY")
     private long quantity;
     @Column(name="ORDER_DATE")
-    private long orderDate;
+    private Instant orderDate;
     @Column(name="STATUS")
     private String orderStatus;
     @Column(name="TOTAL_AMOUNT")

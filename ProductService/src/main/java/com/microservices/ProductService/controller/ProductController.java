@@ -27,4 +27,7 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
+    @PutMapping
+    public ResponseEntity<Void> reduceQuantity()
+
 }
