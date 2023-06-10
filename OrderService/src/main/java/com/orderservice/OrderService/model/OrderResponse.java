@@ -1,6 +1,7 @@
 package com.orderservice.OrderService.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,5 +17,11 @@ public class OrderResponse {
     private Instant orderDate;
     private  String orderStatus;
     private long amount;
+    private ProductDetails productDetails;
+
+    //static inner clas
+
 
 }
+
+

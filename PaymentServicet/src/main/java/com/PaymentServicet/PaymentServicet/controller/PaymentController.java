@@ -21,10 +21,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<Long> doPayment(@RequestBody PaymentRequest paymentRequest){
-
         return new ResponseEntity<>(paymentService.doPayment(paymentRequest), HttpStatus.OK);
-
-
     }
 
 }
