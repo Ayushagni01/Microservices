@@ -18,6 +18,7 @@ public class OrderResponse {
     private  String orderStatus;
     private long amount;
     private ProductDetails productDetails;
+    private PaymentDetails paymentDetails;
 
     //static inner clas
 

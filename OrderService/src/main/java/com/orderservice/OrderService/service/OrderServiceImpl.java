@@ -6,8 +6,10 @@ import com.orderservice.OrderService.exception.CustomException;
 import com.orderservice.OrderService.external.client.PaymentService;
 import com.orderservice.OrderService.external.client.ProductService;
 import com.orderservice.OrderService.external.request.PaymentRequest;
+import com.orderservice.OrderService.external.response.PaymentResponse;
 import com.orderservice.OrderService.model.OrderRequest;
 import com.orderservice.OrderService.model.OrderResponse;
+import com.orderservice.OrderService.model.PaymentDetails;
 import com.orderservice.OrderService.model.ProductDetails;
 import com.orderservice.OrderService.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
@@ -88,7 +90,12 @@ public class OrderServiceImpl implements OrderService{
         ProductResponse productResponse=restTemplate.getForObject("http://PRODUCT-SERVICE/product/"+order.getProductId(),
                 ProductResponse.class);
 
-        log.info("Got the product Response");
+        log.info("Getting Payment information  from the  payment Service");
+
+        PaymentResponse paymentResponse=restTemplate.getForObject("http://PAYMENT-SERVICE/payment/"+order.getId(),PaymentResponse.class);
+
+
+
 
         ProductDetails productDetails= ProductDetails.builder().
                 productName(productResponse.getProductName())
@@ -96,6 +103,14 @@ public class OrderServiceImpl implements OrderService{
                 .price(productResponse.getPrice())
                 .quantity(productResponse.getQuantity())
                 .build();
+
+        PaymentDetails paymentDetails=PaymentDetails.builder()
+                .paymentId(paymentResponse.getPaymentId())
+                .paymentStatus(paymentResponse.getStatus())
+                .paymentDate(paymentResponse.getPaymentDate())
+                .paymentMode(paymentResponse.getPaymentMode())
+                .build();
+
 
 
 
@@ -105,6 +120,7 @@ public class OrderServiceImpl implements OrderService{
         orderResponse.setAmount(order.getAmount());
         orderResponse.setOrderDate(order.getOrderDate());
         orderResponse.setProductDetails(productDetails);
+        orderResponse.setPaymentDetails(paymentDetails);
         return orderResponse;
     }
 
